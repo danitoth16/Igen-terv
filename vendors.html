@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szolgáltatók | Igen-terv</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="vendors.css">
+
+</head>
+<body>
+    <!-- Navigációs menü -->
+    <nav class="bg-white shadow-md fixed w-full z-10">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div>
+                    <a href="#" class="text-2xl serif font-bold text-[#d4a373]">Igen-terv</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="mainpage.html" class="menu-item text-gray-800 font-medium">Kezdőlap</a>
+                    <a href="profile.html" class="menu-item text-gray-800 font-medium">Profil</a>
+                    <a href="vendors.html" class="menu-item active text-gray-800 font-medium">Szolgáltatók</a>
+                    <a href="contact.html" class="menu-item text-gray-800 font-medium">Kapcsolat</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-500 hover:text-gray-800 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobil menü -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white pb-4">
+            <a href="#" class="block py-2 px-4 text-center text-gray-800 font-medium border-b border-gray-200">Kezdőlap</a>
+            <a href="#" class="block py-2 px-4 text-center text-gray-800 font-medium border-b border-gray-200">Profil</a>
+            <a href="#" class="block py-2 px-4 text-center text-gray-800 font-medium border-b border-gray-200">Szolgáltatók</a>
+            <a href="#" class="block py-2 px-4 text-center text-gray-800 font-medium">Kapcsolat</a>
+        </div>
+    </nav>
+
+    <!-- Főtartalom -->
+    <main class="pt-24 pb-16 container mx-auto px-4 md:px-6 lg:px-8">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2 text-center">Szolgáltatók</h1>
+        <p class="text-center text-gray-600 mb-10 max-w-2xl mx-auto">Találd meg a tökéletes szolgáltatókat az esküvődre. Szűrj kategória, helyszín, ár és elérhetőség szerint.</p>
+        
+        <!-- Kategória választó -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button class="category-btn active px-4 py-2 rounded-full border-2 border-[#d4a373] bg-[#d4a373] text-white font-medium text-sm">
+                Összes
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Fotós
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Videós
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Helyszín
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Dekoráció
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Zene
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Catering
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Torta
+            </button>
+            <button class="category-btn px-4 py-2 rounded-full border-2 border-[#d4a373] text-[#d4a373] font-medium text-sm">
+                Virág
+            </button>
+        </div>
+        
+        <!-- Keresés és szűrők -->
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Bal oldal: Szűrők -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-md p-5">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-gray-800">Szűrők</h2>
+                        <button id="clear-filters" class="text-sm text-[#d4a373] hover:underline">Törlés</button>
+                    </div>
+                    
+                    <!-- Keresés -->
+                    <div class="mb-6">
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Keresés</label>
+                        <div class="relative">
+                            <input type="text" id="search" name="search" placeholder="Szolgáltató neve..." class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4a373] focus:border-[#d4a373]">
+                            <div class="absolute left-3 top-2.5 text-gray-400">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Megye szűrő -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="county-filter-toggle">
+                            <h3 class="font-medium text-gray-800">Megye</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2 space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="county-budapest" class="checkbox-custom">
+                                <label for="county-budapest" class="checkbox-custom-label text-sm text-gray-700">Budapest</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="county-pest" class="checkbox-custom">
+                                <label for="county-pest" class="checkbox-custom-label text-sm text-gray-700">Pest</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="county-fejer" class="checkbox-custom">
+                                <label for="county-fejer" class="checkbox-custom-label text-sm text-gray-700">Fejér</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="county-veszprem" class="checkbox-custom">
+                                <label for="county-veszprem" class="checkbox-custom-label text-sm text-gray-700">Veszprém</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="county-gyor" class="checkbox-custom">
+                                <label for="county-gyor" class="checkbox-custom-label text-sm text-gray-700">Győr-Moson-Sopron</label>
+                            </div>
+                            <div class="mt-2">
+                                <button class="text-sm text-[#d4a373] hover:underline">További megyék</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Város szűrő -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="city-filter-toggle">
+                            <h3 class="font-medium text-gray-800">Város</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2">
+                            <input type="text" placeholder="Város keresése..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4a373] focus:border-[#d4a373] mb-2">
+                            <div class="space-y-2 max-h-40 overflow-y-auto">
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-budapest" class="checkbox-custom">
+                                    <label for="city-budapest" class="checkbox-custom-label text-sm text-gray-700">Budapest</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-debrecen" class="checkbox-custom">
+                                    <label for="city-debrecen" class="checkbox-custom-label text-sm text-gray-700">Debrecen</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-szeged" class="checkbox-custom">
+                                    <label for="city-szeged" class="checkbox-custom-label text-sm text-gray-700">Szeged</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-miskolc" class="checkbox-custom">
+                                    <label for="city-miskolc" class="checkbox-custom-label text-sm text-gray-700">Miskolc</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-pecs" class="checkbox-custom">
+                                    <label for="city-pecs" class="checkbox-custom-label text-sm text-gray-700">Pécs</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="city-gyor" class="checkbox-custom">
+                                    <label for="city-gyor" class="checkbox-custom-label text-sm text-gray-700">Győr</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ár szűrő -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="price-filter-toggle">
+                            <h3 class="font-medium text-gray-800">Ár</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2">
+                            <div class="flex justify-between mb-2">
+                                <span class="text-sm text-gray-600" id="min-price-display">0 Ft</span>
+                                <span class="text-sm text-gray-600" id="max-price-display">1 000 000 Ft</span>
+                            </div>
+                            <input type="range" min="0" max="1000000" step="10000" value="500000" class="range-slider w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer" id="price-range">
+                            <div class="flex justify-between mt-4">
+                                <div>
+                                    <label for="min-price" class="block text-xs text-gray-500 mb-1">Minimum</label>
+                                    <input type="number" id="min-price" class="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#d4a373] focus:border-[#d4a373] text-sm" placeholder="0 Ft">
+                                </div>
+                                <div>
+                                    <label for="max-price" class="block text-xs text-gray-500 mb-1">Maximum</label>
+                                    <input type="number" id="max-price" class="w-full px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-[#d4a373] focus:border-[#d4a373] text-sm" placeholder="1 000 000 Ft">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Dátum szűrő -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="date-filter-toggle">
+                            <h3 class="font-medium text-gray-800">Dátum</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2">
+                            <div class="relative">
+                                <input type="text" id="date-picker" placeholder="Válassz dátumot..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#d4a373] focus:border-[#d4a373] cursor-pointer" readonly>
+                                <div class="absolute right-3 top-2.5 text-gray-400">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Dátumválasztó naptár (alapértelmezetten rejtett) -->
+                                <div id="datepicker-calendar" class="datepicker-calendar">
+                                    <div class="p-3 border-b border-gray-200">
+                                        <div class="flex justify-between items-center">
+                                            <button id="prev-month" class="p-1 hover:bg-gray-100 rounded-full">
+                                                <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                            <h4 id="current-month" class="text-sm font-medium text-gray-800">Augusztus 2023</h4>
+                                            <button id="next-month" class="p-1 hover:bg-gray-100 rounded-full">
+                                                <svg class="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-2">
+                                        <div class="grid grid-cols-7 gap-1 mb-1">
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">H</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">K</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">Sze</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">Cs</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">P</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">Szo</div>
+                                            <div class="calendar-day font-medium text-xs text-gray-500 flex justify-center items-center">V</div>
+                                        </div>
+                                        
+                                        <div id="calendar-days" class="grid grid-cols-7 gap-1">
+                                            <!-- A naptár napjai JavaScript-tel lesznek generálva -->
+                                            <div class="calendar-day empty text-sm"></div>
+                                            <div class="calendar-day empty text-sm"></div>
+                                            <div class="calendar-day text-sm">1</div>
+                                            <div class="calendar-day text-sm">2</div>
+                                            <div class="calendar-day text-sm">3</div>
+                                            <div class="calendar-day text-sm">4</div>
+                                            <div class="calendar-day text-sm">5</div>
+                                            <div class="calendar-day text-sm">6</div>
+                                            <div class="calendar-day text-sm">7</div>
+                                            <div class="calendar-day text-sm">8</div>
+                                            <div class="calendar-day text-sm">9</div>
+                                            <div class="calendar-day text-sm">10</div>
+                                            <div class="calendar-day text-sm">11</div>
+                                            <div class="calendar-day text-sm">12</div>
+                                            <div class="calendar-day text-sm">13</div>
+                                            <div class="calendar-day text-sm">14</div>
+                                            <div class="calendar-day text-sm today">15</div>
+                                            <div class="calendar-day text-sm">16</div>
+                                            <div class="calendar-day text-sm">17</div>
+                                            <div class="calendar-day text-sm">18</div>
+                                            <div class="calendar-day text-sm">19</div>
+                                            <div class="calendar-day text-sm">20</div>
+                                            <div class="calendar-day text-sm">21</div>
+                                            <div class="calendar-day text-sm">22</div>
+                                            <div class="calendar-day text-sm">23</div>
+                                            <div class="calendar-day text-sm">24</div>
+                                            <div class="calendar-day text-sm">25</div>
+                                            <div class="calendar-day text-sm">26</div>
+                                            <div class="calendar-day text-sm">27</div>
+                                            <div class="calendar-day text-sm">28</div>
+                                            <div class="calendar-day text-sm">29</div>
+                                            <div class="calendar-day text-sm">30</div>
+                                            <div class="calendar-day text-sm">31</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="p-3 border-t border-gray-200 flex justify-between">
+                                        <button id="clear-date" class="text-sm text-gray-600 hover:text-gray-800">Törlés</button>
+                                        <button id="apply-date" class="text-sm text-[#d4a373] font-medium hover:text-[#c69c6d]">Alkalmaz</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Értékelés szűrő -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="rating-filter-toggle">
+                            <h3 class="font-medium text-gray-800">Értékelés</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2">
+                            <div class="flex items-center space-x-1">
+                                <span class="rating-star active cursor-pointer text-yellow-500">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="rating-star active cursor-pointer text-yellow-500">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="rating-star active cursor-pointer text-yellow-500">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="rating-star cursor-pointer text-gray-300">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="rating-star cursor-pointer text-gray-300">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                </span>
+                                <span class="ml-2 text-sm text-gray-700">vagy több</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- További szűrők -->
+                    <div class="mb-5">
+                        <div class="flex justify-between items-center cursor-pointer" id="more-filter-toggle">
+                            <h3 class="font-medium text-gray-800">További szűrők</h3>
+                            <svg class="w-5 h-5 filter-toggle" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="filter-dropdown mt-2 space-y-3">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="filter-available" class="checkbox-custom">
+                                <label for="filter-available" class="checkbox-custom-label text-sm text-gray-700">Csak elérhető szolgáltatók</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="filter-featured" class="checkbox-custom">
+                                <label for="filter-featured" class="checkbox-custom-label text-sm text-gray-700">Kiemelt szolgáltatók</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="filter-discount" class="checkbox-custom">
+                                <label for="filter-discount" class="checkbox-custom-label text-sm text-gray-700">Akciós ajánlatok</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="filter-online" class="checkbox-custom">
+                                <label for="filter-online" class="checkbox-custom-label text-sm text-gray-700">Online foglalható</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary w-full py-2 px-4 rounded-md text-white font-medium mt-4">
+                        Szűrők alkalmazása
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Jobb oldal: Szolgáltatók listája -->
+            <div class="lg:col-span-3">
+                <!-- Rendezés és találatok -->
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <p class="text-gray-600">Összesen <span class="font-medium">48</span> szolgáltató</p>
+                    
+                    <div class="flex items-center">
+                        <label for="sort" class="mr-2 text-sm text-gray-700">Rendezés:</label>
+                        <select id="sort" class="border border-gray-300 rounded-md px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-[#d4a373] focus:border-[#d4a373]">
+                            <option value="relevance">Relevancia szerint</option>
+                            <option value="price-asc">Ár szerint (növekvő)</option>
+                            <option value="price-desc">Ár szerint (csökkenő)</option>
+                            <option value="rating">Értékelés szerint</option>
+                            <option value="newest">Legújabb</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Szolgáltatók kártyái -->
+                <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Szolgáltató 1 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Cpath d='M400 150 C 350 150, 300 200, 300 250 C 300 300, 350 350, 400 350 C 450 350, 500 300, 500 250 C 500 200, 450 150, 400 150 Z' fill='%23d4a373' opacity='0.7'/%3E%3Ccircle cx='380' cy='220' r='20' fill='white'/%3E%3C/svg%3E" alt="Fotós szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Fotós</div>
+                            <button class="favorite-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">Kreatív Pillanatok</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Budapest, Pest megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Esküvői fotózás, páros fotózás, jegyesfotózás és egyéb kreatív fotós szolgáltatások.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">180 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Szolgáltató 2 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Cpath d='M200 200 L 600 200 L 600 350 L 200 350 Z' fill='%23d4a373' opacity='0.7'/%3E%3Cpath d='M300 150 L 500 150 L 500 200 L 300 200 Z' fill='%23d4a373' opacity='0.5'/%3E%3C/svg%3E" alt="Helyszín szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Helyszín</div>
+                            <button class="favorite-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">Álomkert Rendezvényház</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">4.7</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Gödöllő, Pest megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Gyönyörű kerttel rendelkező rendezvényház, tökéletes helyszín esküvőkhöz és fogadásokhoz.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">450 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Szolgáltató 3 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Cpath d='M350 150 L 450 150 L 450 350 L 350 350 Z' fill='%23d4a373' opacity='0.7'/%3E%3Ccircle cx='400' cy='120' r='50' fill='%23d4a373' opacity='0.5'/%3E%3C/svg%3E" alt="Videós szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Videós</div>
+                            <button class="favorite-btn active">
+                                <svg class="w-5 h-5" fill="currentColor" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">FilmMoments</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">4.8</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Budapest, Pest megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Professzionális esküvői videók, highlight filmek és dokumentumfilmek készítése.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">220 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Szolgáltató 4 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Ccircle cx='400' cy='250' r='150' fill='%23d4a373' opacity='0.2'/%3E%3Ccircle cx='400' cy='250' r='100' fill='%23d4a373' opacity='0.4'/%3E%3Ccircle cx='400' cy='250' r='50' fill='%23d4a373' opacity='0.7'/%3E%3C/svg%3E" alt="Dekoráció szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Dekoráció</div>
+                            <button class="favorite-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">Virágálom Dekor</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">5.0</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Debrecen, Hajdú-Bihar megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Egyedi esküvői dekorációk, virágkompozíciók és teljes helyszíndekoráció.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">150 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Szolgáltató 5 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Cpath d='M300 200 L 350 150 L 450 150 L 500 200 L 500 350 L 300 350 Z' fill='%23d4a373' opacity='0.7'/%3E%3C/svg%3E" alt="Zene szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Zene</div>
+                            <button class="favorite-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">Harmónia Zenekar</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">4.6</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Szeged, Csongrád-Csanád megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Élőzene esküvőkre, rendezvényekre. Klasszikus és modern repertoár, DJ szolgáltatás.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">200 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Szolgáltató 6 -->
+                    <div class="service-card bg-white rounded-xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 500' fill='%23d4a373'%3E%3Crect width='800' height='500' fill='%23f9f3ee'/%3E%3Cpath d='M350 150 C 300 200, 300 300, 350 350 L 450 350 C 500 300, 500 200, 450 150 Z' fill='%23d4a373' opacity='0.7'/%3E%3C/svg%3E" alt="Torta szolgáltatás" class="w-full h-48 object-cover">
+                            <div class="service-badge">Torta</div>
+                            <button class="favorite-btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-gray-800">Édes Álom Cukrászda</h3>
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                    </svg>
+                                    <span class="ml-1 text-sm font-medium text-gray-700">4.9</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-3">Pécs, Baranya megye</p>
+                            <p class="text-sm text-gray-600 mb-4">Egyedi esküvői torták, desszertek és sütemények készítése. Ingyenes kóstoló.</p>
+                            <div class="flex justify-between items-center">
+                                <p class="font-medium text-[#d4a373]">80 000 Ft-tól</p>
+                                <a href="#" class="btn-outline py-1 px-3 rounded-md text-sm">Részletek</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lapozás -->
+                <div class="flex justify-center mt-10">
+                    <nav class="flex items-center space-x-1">
+                        <a href="#" class="pagination-btn px-3 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-[#d4a373] hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="pagination-btn active px-4 py-2 rounded-md border border-[#d4a373] bg-[#d4a373] text-white">1</a>
+                        <a href="#" class="pagination-btn px-4 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-[#d4a373] hover:text-white">2</a>
+                        <a href="#" class="pagination-btn px-4 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-[#d4a373] hover:text-white">3</a>
+                        <span class="px-2 text-gray-500">...</span>
+                        <a href="#" class="pagination-btn px-4 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-[#d4a373] hover:text-white">8</a>
+                        <a href="#" class="pagination-btn px-3 py-2 rounded-md border border-gray-300 text-gray-600 hover:bg-[#d4a373] hover:text-white">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Lábléc -->
+    <footer class="bg-white border-t border-gray-200 py-8">
+        <div class="container mx-auto px-4 md:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 serif">Igen-terv</h3>
+                    <p class="text-gray-600 text-sm mb-4">Az esküvőszervezés egyszerűen és stílusosan. Segítünk megtalálni a tökéletes szolgáltatókat az álomesküvődhöz.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-500 hover:text-[#d4a373]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-500 hover:text-[#d4a373]">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'94d0dbce60905a99',t:'MTc0OTQ3NDUxNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>

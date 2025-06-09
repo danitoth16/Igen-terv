@@ -1,0 +1,204 @@
+body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdfbf9;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .menu-item {
+            position: relative;
+        }
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #d4a373;
+            transition: width 0.3s ease;
+        }
+        .menu-item:hover::after, .menu-item.active::after {
+            width: 100%;
+        }
+        .btn-primary {
+            background-color: #d4a373;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #c69c6d;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            border: 2px solid #d4a373;
+            color: #d4a373;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: #d4a373;
+            color: white;
+        }
+        .service-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border-color: #f3e8d7;
+        }
+        .filter-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .filter-dropdown.open {
+            max-height: 500px;
+        }
+        .filter-toggle {
+            transition: transform 0.3s ease;
+        }
+        .filter-toggle.open {
+            transform: rotate(180deg);
+        }
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+        .category-btn:hover, .category-btn.active {
+            background-color: #d4a373;
+            color: white;
+        }
+        .rating-star {
+            transition: all 0.2s ease;
+        }
+        .rating-star:hover, .rating-star.active {
+            color: #f59e0b;
+            transform: scale(1.1);
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #d4a373;
+            cursor: pointer;
+        }
+        .range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #d4a373;
+            cursor: pointer;
+        }
+        .checkbox-custom {
+            display: none;
+        }
+        .checkbox-custom-label {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .checkbox-custom-label:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #d4a373;
+            border-radius: 4px;
+            background-color: white;
+            transition: all 0.2s ease;
+        }
+        .checkbox-custom:checked + .checkbox-custom-label:before {
+            background-color: #d4a373;
+        }
+        .checkbox-custom:checked + .checkbox-custom-label:after {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+        .pagination-btn {
+            transition: all 0.3s ease;
+        }
+        .pagination-btn:hover, .pagination-btn.active {
+            background-color: #d4a373;
+            color: white;
+        }
+        .datepicker-calendar {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 10;
+            width: 300px;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .datepicker-calendar.open {
+            display: block;
+        }
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease;
+        }
+        .calendar-day:hover:not(.empty):not(.selected) {
+            background-color: #f9f3ee;
+        }
+        .calendar-day.selected {
+            background-color: #d4a373;
+            color: white;
+        }
+        .calendar-day.today {
+            border: 2px solid #d4a373;
+        }
+        .calendar-day.empty {
+            cursor: default;
+        }
+        .service-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #d4a373;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: white;
+            border-radius: 9999px;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+        .favorite-btn.active svg {
+            fill: #ef4444;
+            color: #ef4444;
+        }
