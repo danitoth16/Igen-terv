@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -10,6 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="./css/profile.css"> 
     <script src="./javascript/profile.js"></script>
+    <script src="./javascript/to_do_list.js"></script>
+    <link rel="stylesheet" href="./css/to_do_list.css">
 </head>
 <body>
     <!-- Navigációs menü -->
@@ -527,118 +528,192 @@
         
         <!-- Teendők szekció (alapértelmezetten rejtett) -->
         <div id="tasks-section" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-800 serif">Teendők</h2>
-                    <button class="btn-outline py-1 px-3 rounded-md font-medium text-sm flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-                        </svg>
-                        Új teendő
-                    </button>
+            <div id="todo-list-container" class="todo-list-container p-6">
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl serif font-bold">Teendők listája</h2>
+                        <button id="add-task-btn" class="btn-primary px-4 py-2 rounded-md text-white font-medium flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Új teendő
+                        </button>
+                    </div>
+
+                    <!-- Összesítő -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="text-lg font-medium">Haladás</div>
+                            <div id="progress-percentage" class="text-sm font-medium">0%</div>
+                        </div>
+                        <div class="progress-container">
+                            <div id="progress-bar" class="progress-bar" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Szűrők és rendezés -->
+                    <div class="flex flex-col md:flex-row justify-between mb-6">
+                        <div class="flex flex-wrap gap-2 mb-4 md:mb-0">
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="all">Összes</button>
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="active">Aktív</button>
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="completed">Befejezett</button>
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="high">Magas prioritás</button>
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="medium">Közepes prioritás</button>
+                            <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="low">Alacsony prioritás</button>
+                        </div>
+                        <div class="flex items-center">
+                            <label for="sort-tasks" class="mr-2 text-sm font-medium">Rendezés:</label>
+                            <select id="sort-tasks" class="form-input py-1 px-3 mb-0">
+                                <option value="priority">Prioritás szerint</option>
+                                <option value="date">Határidő szerint</option>
+                                <option value="name">Név szerint</option>
+                                <option value="category">Kategória szerint</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Teendők listája -->
+                    <div id="tasks-container" class="space-y-3">
+                        <!-- Teendők ide kerülnek -->
+                    </div>
                 </div>
-                
-                <div class="mb-6">
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="font-medium">Haladás: 65%</p>
-                    </div>
-                    <div class="budget-bar">
-                        <div class="budget-progress" style="width: 65%"></div>
-                    </div>
+            </div>
+
+            <!-- Új teendő hozzáadása modal -->
+            <div id="add-task-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" id="close-task-modal">&times;</span>
+                    <h2 class="text-xl font-bold mb-4">Új teendő hozzáadása</h2>
+                    <form id="add-task-form">
+                        <div class="mb-4">
+                            <label for="task-title" class="form-label">Teendő címe</label>
+                            <input type="text" id="task-title" class="form-input" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="task-description" class="form-label">Leírás</label>
+                            <textarea id="task-description" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="task-deadline" class="form-label">Határidő</label>
+                            <input type="date" id="task-deadline" class="form-input">
+                        </div>
+                        <div class="mb-4">
+                            <label for="task-category" class="form-label">Kategória</label>
+                            <select id="task-category" class="form-input">
+                                <option value="venue">Helyszín</option>
+                                <option value="catering">Vendéglátás</option>
+                                <option value="decoration">Dekoráció</option>
+                                <option value="attire">Ruházat</option>
+                                <option value="other">Egyéb</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Prioritás</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="task-priority" value="high" class="mr-2">
+                                    Magas
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="task-priority" value="medium" class="mr-2" checked>
+                                    Közepes
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="task-priority" value="low" class="mr-2">
+                                    Alacsony
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" id="cancel-add-task" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                            <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Hozzáadás</button>
+                        </div>
+                    </form>
                 </div>
-                
-                <div class="space-y-4">
-                    <div class="border border-gray-200 rounded-lg p-4 task-item">
-                        <div class="flex items-start">
-                            <input type="checkbox" class="mt-1 mr-3 h-5 w-5 text-[#d4a373] rounded border-gray-300 focus:ring-[#d4a373]" checked>
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-medium text-gray-800 line-through">Helyszín lefoglalása</h3>
-                                <p class="text-gray-600 text-sm">Esküvői helyszín kiválasztása és foglalása</p>
-                                <div class="flex items-center mt-2 text-sm text-gray-500">
-                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    2023. június 15.
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <button class="text-gray-500 hover:text-[#d4a373]">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                    </svg>
-                                </button>
+            </div>
+
+            <!-- Teendő szerkesztése modal -->
+            <div id="edit-task-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" id="close-edit-task-modal">&times;</span>
+                    <h2 class="text-xl font-bold mb-4">Teendő szerkesztése</h2>
+                    <form id="edit-task-form">
+                        <input type="hidden" id="edit-task-id">
+                        <div class="mb-4">
+                            <label for="edit-task-title" class="form-label">Teendő címe</label>
+                            <input type="text" id="edit-task-title" class="form-input" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit-task-description" class="form-label">Leírás</label>
+                            <textarea id="edit-task-description" class="form-input" rows="3"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit-task-deadline" class="form-label">Határidő</label>
+                            <input type="date" id="edit-task-deadline" class="form-input">
+                        </div>
+                        <div class="mb-4">
+                            <label for="edit-task-category" class="form-label">Kategória</label>
+                            <select id="edit-task-category" class="form-input">
+                                <option value="venue">Helyszín</option>
+                                <option value="catering">Vendéglátás</option>
+                                <option value="decoration">Dekoráció</option>
+                                <option value="attire">Ruházat</option>
+                                <option value="other">Egyéb</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Prioritás</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="edit-task-priority" value="high" class="mr-2">
+                                    Magas
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="edit-task-priority" value="medium" class="mr-2">
+                                    Közepes
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="edit-task-priority" value="low" class="mr-2">
+                                    Alacsony
+                                </label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="border border-gray-200 rounded-lg p-4 task-item">
-                        <div class="flex items-start">
-                            <input type="checkbox" class="mt-1 mr-3 h-5 w-5 text-[#d4a373] rounded border-gray-300 focus:ring-[#d4a373]" checked>
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-medium text-gray-800 line-through">Fotós és videós foglalása</h3>
-                                <p class="text-gray-600 text-sm">Esküvői fotós és videós kiválasztása és foglalása</p>
-                                <div class="flex items-center mt-2 text-sm text-gray-500">
-                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    2023. július 1.
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <button class="text-gray-500 hover:text-[#d4a373]">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                    </svg>
-                                </button>
+                        <div class="mb-4">
+                            <label class="form-label">Állapot</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="edit-task-completed" class="mr-2">
+                                    Befejezett
+                                </label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="border border-gray-200 rounded-lg p-4 task-item">
-                        <div class="flex items-start">
-                            <input type="checkbox" class="mt-1 mr-3 h-5 w-5 text-[#d4a373] rounded border-gray-300 focus:ring-[#d4a373]">
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-medium text-gray-800">Meghívók kiküldése</h3>
-                                <p class="text-gray-600 text-sm">Esküvői meghívók elkészítése és kiküldése a vendégeknek</p>
-                                <div class="flex items-center mt-2 text-sm text-gray-500">
-                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    2023. augusztus 15.
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <button class="text-gray-500 hover:text-[#d4a373]">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                    </svg>
-                                </button>
+                        <div class="flex justify-between">
+                            <button type="button" id="delete-task" class="btn-danger px-4 py-2 rounded-md">Törlés</button>
+                            <div>
+                                <button type="button" id="cancel-edit-task" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                                <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Mentés</button>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="border border-gray-200 rounded-lg p-4 task-item">
-                        <div class="flex items-start">
-                            <input type="checkbox" class="mt-1 mr-3 h-5 w-5 text-[#d4a373] rounded border-gray-300 focus:ring-[#d4a373]">
-                            <div class="flex-grow">
-                                <h3 class="text-lg font-medium text-gray-800">Dekoráció kiválasztása</h3>
-                                <p class="text-gray-600 text-sm">Esküvői dekoráció koncepciójának kidolgozása és megrendelése</p>
-                                <div class="flex items-center mt-2 text-sm text-gray-500">
-                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                    </svg>
-                                    2023. szeptember 1.
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <button class="text-gray-500 hover:text-[#d4a373]">
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                    </svg>
-                                </button>
-                            </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Megjegyzés hozzáadása modal -->
+            <div id="add-note-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal" id="close-note-modal">&times;</span>
+                    <h2 class="text-xl font-bold mb-4">Megjegyzés hozzáadása</h2>
+                    <form id="add-note-form">
+                        <input type="hidden" id="note-task-id">
+                        <div class="mb-4">
+                            <label for="task-note" class="form-label">Megjegyzés</label>
+                            <textarea id="task-note" class="form-input" rows="4" required></textarea>
                         </div>
-                    </div>
+                        <div class="flex justify-end">
+                            <button type="button" id="cancel-add-note" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                            <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Hozzáadás</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
