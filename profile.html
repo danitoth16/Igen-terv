@@ -57,6 +57,7 @@
                 <a href="#budget" class="profile-tab text-gray-800">Költségvetés</a>
                 <a href="#guests" class="profile-tab text-gray-800">Vendéglista</a>
                 <a href="#tasks" class="profile-tab text-gray-800">Teendők</a>
+
             </div>
         </div>
         
@@ -345,89 +346,9 @@
         </div>
         
         <!-- Költségvetés szekció (alapértelmezetten rejtett) -->
+
         <div id="budget-section" class="hidden">
-            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold text-gray-800 serif">Költségvetés</h2>
-                    <button class="btn-outline py-1 px-3 rounded-md font-medium text-sm flex items-center">
-                        <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path>
-                        </svg>
-                        Új tétel
-                    </button>
-                </div>
-                
-                <div class="mb-6">
-                    <div class="flex justify-between items-center mb-2">
-                        <p class="font-medium">Teljes költségvetés: 2 500 000 Ft</p>
-                        <p class="text-sm text-gray-600">Elköltve: 1 250 000 Ft (50%)</p>
-                    </div>
-                    <div class="budget-bar">
-                        <div class="budget-progress" style="width: 50%"></div>
-                    </div>
-                </div>
-                
-                <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                            <tr>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tétel</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategória</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Összeg</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Állapot</th>
-                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Művelet</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-4 py-3 whitespace-nowrap">Helyszín foglalás</td>
-                                <td class="px-4 py-3 whitespace-nowrap">Helyszín</td>
-                                <td class="px-4 py-3 whitespace-nowrap">800 000 Ft</td>
-                                <td class="px-4 py-3 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Kifizetve</span>
-                                </td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-gray-500 hover:text-[#d4a373]">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 whitespace-nowrap">Fotós</td>
-                                <td class="px-4 py-3 whitespace-nowrap">Szolgáltatók</td>
-                                <td class="px-4 py-3 whitespace-nowrap">250 000 Ft</td>
-                                <td class="px-4 py-3 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Előleg fizetve</span>
-                                </td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-gray-500 hover:text-[#d4a373]">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-4 py-3 whitespace-nowrap">Menyasszonyi ruha</td>
-                                <td class="px-4 py-3 whitespace-nowrap">Ruha</td>
-                                <td class="px-4 py-3 whitespace-nowrap">200 000 Ft</td>
-                                <td class="px-4 py-3 whitespace-nowrap">
-                                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Kifizetve</span>
-                                </td>
-                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
-                                    <button class="text-gray-500 hover:text-[#d4a373]">
-                                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <iframe src="./budget.html" width="100%" height="1400px"></iframe>
         </div>
         
         <!-- Vendéglista szekció (alapértelmezetten rejtett) -->
