@@ -1,0 +1,301 @@
+body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fdf8f5;
+            color: #333;
+        }
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .btn-primary {
+            background-color: #d4a373;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #c69c6d;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background-color: #e9edc9;
+            color: #5c5c5c;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #ccd5ae;
+            transform: translateY(-2px);
+        }
+        .guest-item {
+            cursor: grab;
+            transition: all 0.2s ease;
+        }
+        .guest-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .guest-item:active {
+            cursor: grabbing;
+        }
+        .seating-area {
+            position: relative;
+            width: 1000px;
+            height: 800px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            border: 2px dashed #d4a373;
+            overflow: hidden;
+        }
+        .table {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            transition: box-shadow 0.3s ease;
+            border-radius: 8px;
+        }
+        .table:hover {
+            box-shadow: 0 0 0 2px #d4a373;
+        }
+        .seat {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #e9edc9;
+            border: 2px solid #ccd5ae;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: #5c5c5c;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .seat:hover {
+            background-color: #d4a373;
+            border-color: #c69c6d;
+            color: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .seat.occupied {
+            background-color: #d4a373;
+            border-color: #c69c6d;
+            color: white;
+        }
+        .seat-tooltip {
+            position: absolute;
+            background-color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        .seat:hover .seat-tooltip {
+            opacity: 1;
+        }
+        .dragging {
+            opacity: 0.5;
+        }
+        .drop-indicator {
+            border: 2px dashed #d4a373;
+        }
+        .table-name {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 600;
+            color: #5c5c5c;
+            pointer-events: none;
+            text-align: center;
+            width: 80%;
+        }
+        .guest-search {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            transition: all 0.3s ease;
+        }
+        .guest-search:focus {
+            outline: none;
+            border-color: #d4a373;
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+        }
+        .category-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+        .category-family {
+            background-color: #bde0fe;
+            color: #1e429f;
+        }
+        .category-friends {
+            background-color: #ffafcc;
+            color: #9d174d;
+        }
+        .category-colleagues {
+            background-color: #a3b18a;
+            color: #3c6e71;
+        }
+        .zoom-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 20;
+        }
+        .zoom-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .zoom-btn:hover {
+            background-color: #f8f8f8;
+            transform: scale(1.05);
+        }
+        .floor-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(#e2e8f0 1px, transparent 1px), 
+                              linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #d4a373;
+            box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.2);
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .color-picker {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1rem;
+        }
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .color-option:hover, .color-option.selected {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px currentColor;
+        }
+        .table-controls {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            display: flex;
+            gap: 5px;
+            z-index: 5;
+        }
+        .table-control-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: white;
+            border: 1px solid #ccd5ae;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .table-control-btn:hover {
+            background-color: #f8f8f8;
+            transform: scale(1.1);
+        }
+        .delete-btn {
+            color: #e63946;
+        }
+        .edit-btn {
+            color: #457b9d;
+        }
+        .table-guests-tooltip {
+            position: absolute;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            padding: 10px;
+            min-width: 200px;
+            max-width: 300px;
+            z-index: 30;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            pointer-events: none;
+        }
+        .table:hover .table-guests-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+        .guest-tooltip-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .guest-tooltip-item:last-child {
+            border-bottom: none;
+        }

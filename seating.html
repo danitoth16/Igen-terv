@@ -1,0 +1,222 @@
+
+
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esküvői Ülésrend Tervező</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap">
+    <link rel="stylesheet" href="css/seating.css">
+    <script src="javascript/seating.js"></script>
+</head>
+<body>
+    <div class="min-h-screen flex flex-col">
+        <!-- Fejléc -->
+        <header class="bg-white shadow-md">
+            <div class="container mx-auto px-4 py-4">
+                <div class="flex justify-between items-center">
+                <div>
+                    <a href="mainpage.html" class="text-2xl serif font-bold text-[#d4a373]">Igen-terv</a>
+                </div>
+                    <div class="flex space-x-4">
+                        <button id="save-btn" class="btn-primary px-4 py-2 rounded-md text-white font-medium">
+                            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                            </svg>
+                            Mentés
+                        </button>
+                        <button id="print-btn" class="btn-secondary px-4 py-2 rounded-md font-medium">
+                            <svg class="w-5 h-5 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                            </svg>
+                            Nyomtatás
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Fő tartalom -->
+        <div class="flex-grow flex flex-col md:flex-row">
+            <!-- Bal oldali panel - Vendéglista és asztal hozzáadás -->
+            <div class="w-full md:w-1/4 bg-white shadow-md p-4 overflow-y-auto">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold mb-4">Asztalok</h2>
+                    <button id="add-table-btn" class="btn-primary w-full py-2 rounded-md text-white font-medium flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Új asztal hozzáadása
+                    </button>
+                </div>
+
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">Vendéglista</h2>
+                        <button id="add-guest-btn" class="btn-secondary px-3 py-1 rounded-md text-sm font-medium">
+                            <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                            Új vendég
+                        </button>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" id="guest-search" class="guest-search" placeholder="Vendég keresése...">
+                    </div>
+                    <div class="mb-4 flex flex-wrap gap-2">
+                        <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="all">Összes</button>
+                        <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="unassigned">Nem ültetett</button>
+                        <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="family">Család</button>
+                        <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="friends">Barátok</button>
+                        <button class="filter-btn px-3 py-1 rounded-full bg-gray-200 text-sm font-medium" data-filter="colleagues">Munkatársak</button>
+                    </div>
+                    <div id="guest-list" class="space-y-2 max-h-[400px] overflow-y-auto">
+                        <!-- Vendégek listája ide kerül -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jobb oldali panel - Ülésrend tervező -->
+            <div class="w-full md:w-3/4 bg-gray-100 p-4 flex items-center justify-center">
+                <div class="seating-area" id="seating-area">
+                    <div class="floor-grid"></div>
+                    <div id="tables-container">
+                        <!-- Asztalok ide kerülnek -->
+                    </div>
+                    <div class="zoom-controls">
+                        <div class="zoom-btn" id="zoom-in">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                            </svg>
+                        </div>
+                        <div class="zoom-btn" id="zoom-out">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                            </svg>
+                        </div>
+                        <div class="zoom-btn" id="reset-view">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Új vendég hozzáadása modal -->
+    <div id="add-guest-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-guest-modal">&times;</span>
+            <h2 class="text-xl font-bold mb-4">Új vendég hozzáadása</h2>
+            <form id="add-guest-form">
+                <div class="mb-4">
+                    <label for="guest-name" class="form-label">Név</label>
+                    <input type="text" id="guest-name" class="form-input" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Kategória</label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="guest-category" value="family" class="mr-2" checked>
+                            Család
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="guest-category" value="friends" class="mr-2">
+                            Barátok
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="guest-category" value="colleagues" class="mr-2">
+                            Munkatársak
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="guest-notes" class="form-label">Megjegyzések (pl. étel allergia)</label>
+                    <textarea id="guest-notes" class="form-input" rows="2"></textarea>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="cancel-add-guest" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                    <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Új asztal hozzáadása modal -->
+    <div id="add-table-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-table-modal">&times;</span>
+            <h2 class="text-xl font-bold mb-4">Új asztal hozzáadása</h2>
+            <form id="add-table-form">
+                <div class="mb-4">
+                    <label for="table-name" class="form-label">Asztal neve</label>
+                    <input type="text" id="table-name" class="form-input" placeholder="pl. 1. asztal" required>
+                </div>
+                <div class="mb-4">
+                    <label for="table-seats" class="form-label">Férőhelyek száma</label>
+                    <select id="table-seats" class="form-input">
+                        <option value="6">6 fő</option>
+                        <option value="8" selected>8 fő</option>
+                        <option value="10">10 fő</option>
+                        <option value="12">12 fő</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Asztal színe</label>
+                    <div class="color-picker">
+                        <div class="color-option selected" style="background-color: #faedcd;" data-color="#faedcd"></div>
+                        <div class="color-option" style="background-color: #d4a373;" data-color="#d4a373"></div>
+                        <div class="color-option" style="background-color: #e9edc9;" data-color="#e9edc9"></div>
+                        <div class="color-option" style="background-color: #ccd5ae;" data-color="#ccd5ae"></div>
+                        <div class="color-option" style="background-color: #bde0fe;" data-color="#bde0fe"></div>
+                        <div class="color-option" style="background-color: #ffafcc;" data-color="#ffafcc"></div>
+                        <div class="color-option" style="background-color: #a3b18a;" data-color="#a3b18a"></div>
+                    </div>
+                </div>
+                <div class="flex justify-end">
+                    <button type="button" id="cancel-add-table" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                    <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Hozzáadás</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Asztal szerkesztése modal -->
+    <div id="edit-table-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-edit-table-modal">&times;</span>
+            <h2 class="text-xl font-bold mb-4">Asztal szerkesztése</h2>
+            <form id="edit-table-form">
+                <div class="mb-4">
+                    <label for="edit-table-name" class="form-label">Asztal neve</label>
+                    <input type="text" id="edit-table-name" class="form-input" required>
+                </div>
+                <div class="mb-4">
+                    <label class="form-label">Asztal színe</label>
+                    <div class="color-picker" id="edit-color-picker">
+                        <div class="color-option" style="background-color: #faedcd;" data-color="#faedcd"></div>
+                        <div class="color-option" style="background-color: #d4a373;" data-color="#d4a373"></div>
+                        <div class="color-option" style="background-color: #e9edc9;" data-color="#e9edc9"></div>
+                        <div class="color-option" style="background-color: #ccd5ae;" data-color="#ccd5ae"></div>
+                        <div class="color-option" style="background-color: #bde0fe;" data-color="#bde0fe"></div>
+                        <div class="color-option" style="background-color: #ffafcc;" data-color="#ffafcc"></div>
+                        <div class="color-option" style="background-color: #a3b18a;" data-color="#a3b18a"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <button type="button" id="delete-table" class="px-4 py-2 bg-red-500 text-white rounded-md">Törlés</button>
+                    <div>
+                        <button type="button" id="cancel-edit-table" class="px-4 py-2 bg-gray-200 rounded-md mr-2">Mégse</button>
+                        <button type="submit" class="btn-primary px-4 py-2 rounded-md text-white">Mentés</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    </body>
+</html>
